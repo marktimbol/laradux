@@ -22591,16 +22591,18 @@ var users = function users() {
 				}])
 			});
 		case 'TOGGLE_USER':
-			console.log(state.all);
-			return state;
-		// return Object.assign({}, state, {
-		// 	return state.all.map((user) => {
-		// 		if( user.id !== action.id ) { return user }
-		// 		return Object.assign({}, user, {
-		// 			active: ! user.active;
-		// 		})
-		// 	})
-		// })
+			var users = state.all.map(function (user) {
+				if (user.id !== action.id) {
+					return user;
+				}
+				return Object.assign({}, user, {
+					active: !user.active
+				});
+				return user;
+			});
+			return Object.assign({}, state, {
+				all: [].concat(_toConsumableArray(users))
+			});
 		case 'USER_WAS_DELETED':
 			return Object.assign({}, state, {
 				all: [].concat(_toConsumableArray(state.all.slice(0, action.index)), _toConsumableArray(state.all.slice(action.index + 1)))

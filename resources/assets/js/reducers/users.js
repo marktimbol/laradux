@@ -27,13 +27,17 @@ const users = (state = initialState, action) =>
 				]
 			})
 		case 'TOGGLE_USER':
-			return Object.assign({}, state, {
-				all.map((user) => {
-					if( user.id !== action.id ) { return user }
-					return Object.assign({}, user, {
-						active: ! user.active;
-					})
+			let users = state.all.map((user) => {
+				if( user.id !== action.id ) { return user }
+				return Object.assign({}, user, {
+					active: ! user.active
 				})
+				return user;
+			})
+			return Object.assign({}, state, {
+				all: [
+					...users
+				]
 			})
 		case 'USER_WAS_DELETED':
 			return Object.assign({}, state, {
